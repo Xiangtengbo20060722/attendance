@@ -11,12 +11,9 @@ RUN rm -rf /usr/local/tomcat/webapps/ROOT \
 # Copy the war file into Tomcat's webapps folder
 COPY attendance.war /usr/local/tomcat/webapps/attendance.war
 
-# Use an entry point that adapts the port to Render's PORT variable
-# Modify server.xml during build (Render filesystem is read-only at runtime)
-RUN sed -i 's/port="8080"/port="8081"/' /usr/local/tomcat/conf/server.xml
-
 # Copy entrypoint script
 COPY entrypoint.sh /usr/local/tomcat/bin/entrypoint.sh
 RUN sed -i 's/\r$//' /usr/local/tomcat/bin/entrypoint.sh && chmod +x /usr/local/tomcat/bin/entrypoint.sh
+
 EXPOSE 8080
 CMD ["/usr/local/tomcat/bin/entrypoint.sh"]
