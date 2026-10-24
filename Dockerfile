@@ -13,7 +13,7 @@ COPY attendance.war /usr/local/tomcat/webapps/attendance.war
 
 # Use an entry point that adapts the port to Render's PORT variable
 COPY entrypoint.sh /usr/local/tomcat/bin/entrypoint.sh
-RUN chmod +x /usr/local/tomcat/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/tomcat/bin/entrypoint.sh && chmod +x /usr/local/tomcat/bin/entrypoint.sh
 
 EXPOSE 8080
 CMD ["/usr/local/tomcat/bin/entrypoint.sh"]
